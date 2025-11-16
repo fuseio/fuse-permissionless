@@ -27,7 +27,12 @@ npm test
 npm run test:pimlico
 ```
 
-**Note:** The Pimlico implementation currently has compatibility issues with EntryPoint v0.6. The `permissionless.js` library doesn't correctly pass the entryPoint address in RPC calls to Pimlico's bundler, resulting in "params[1]: expected string, received null" errors. Use the Fuse bundler/paymaster implementation instead.
+**Note:** The Pimlico implementation has partial compatibility:
+
+- ✅ Paymaster sponsorship works (gas is sponsored)
+- ❌ Transaction simulation fails with "UserOperation reverted during simulation"
+
+The issue appears to be with Pimlico's strict simulation requirements for EntryPoint v0.6. The Fuse bundler/paymaster implementation works perfectly and is recommended for production use.
 
 ## Configuration
 
