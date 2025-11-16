@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "test": "tsx aa_tests.ts",
+    "test:pimlico": "tsx aa_tests_pimlico.ts",
     "test:dev": "tsx watch aa_tests.ts"
   },
   "dependencies": {

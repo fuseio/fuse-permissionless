@@ -2,6 +2,8 @@
 
 TypeScript implementation of Account Abstraction (ERC-4337) tests using permissionless.js SDK with EntryPoint v0.6 on Fuse Network.
 
+Includes implementations for both **Fuse** bundler/paymaster (working) and **Pimlico** bundler/paymaster (reference only - has compatibility issues with v0.6).
+
 ## Features
 
 - ✅ EtherspotWallet support (compatible with Fuse SDK addresses)
@@ -17,23 +19,36 @@ cd test-permissionless
 cp env.example .env
 # Edit .env with your credentials
 npm install
+
+# Test with Fuse bundler/paymaster (working)
 npm test
+
+# Test with Pimlico bundler (reference - has v0.6 compatibility issues)
+npm run test:pimlico
 ```
+
+**Note:** The Pimlico implementation currently has compatibility issues with EntryPoint v0.6. The `permissionless.js` library doesn't correctly pass the entryPoint address in RPC calls to Pimlico's bundler, resulting in "params[1]: expected string, received null" errors. Use the Fuse bundler/paymaster implementation instead.
 
 ## Configuration
 
 Copy `env.example` to `.env` and configure:
 
 ```env
+# Required for both
 PRIVATE_KEY=0x...
-PUBLIC_API_KEY=your_api_key
+RPC_URL=https://rpc.fuse.io
 TOKEN_ADDRESS=0x34Ef2Cc892a88415e9f02b91BfA9c91fC0bE6bD4
+USE_ETHERSPOT=true
+
+# For Fuse bundler/paymaster (npm test)
+PUBLIC_API_KEY=your_fuse_api_key
 SPONSOR_ID=your_sponsor_id
 PAYMASTER_ADDRESS=0x...
-RPC_URL=https://rpc.fuse.io
 BUNDLER_URL=https://api.fuse.io/api/v0/bundler?apiKey=YOUR_KEY
 PAYMASTER_URL=https://api.fuse.io/api/v0/paymaster?apiKey=YOUR_KEY
-USE_ETHERSPOT=true
+
+# For Pimlico bundler/paymaster (npm run test:pimlico)
+PIMLICO_API_KEY=your_pimlico_api_key
 ```
 
 **Note:** RPC_URL must be HTTP/HTTPS (not WebSocket).
