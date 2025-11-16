@@ -2,7 +2,7 @@
 
 TypeScript implementation of Account Abstraction (ERC-4337) tests using permissionless.js SDK with EntryPoint v0.6 on Fuse Network.
 
-Includes implementations for both **Fuse** bundler/paymaster (working) and **Pimlico** bundler/paymaster (reference only - has compatibility issues with v0.6).
+Includes implementations for both **Fuse** bundler/paymaster and **Pimlico** bundler/paymaster.
 
 ## Features
 
@@ -11,6 +11,7 @@ Includes implementations for both **Fuse** bundler/paymaster (working) and **Pim
 - ✅ Native token transfers via user operations
 - ✅ ERC-20 token transfers via user operations
 - ✅ Fuse bundler and paymaster integration
+- ✅ Pimlico bundler and paymaster integration
 
 ## Quick Start
 
@@ -20,19 +21,14 @@ cp env.example .env
 # Edit .env with your credentials
 npm install
 
-# Test with Fuse bundler/paymaster (working)
+# Test with Fuse bundler/paymaster
 npm test
 
-# Test with Pimlico bundler (reference - has v0.6 compatibility issues)
+# Test with Pimlico bundler/paymaster
 npm run test:pimlico
 ```
 
-**Note:** The Pimlico implementation has partial compatibility:
-
-- ✅ Paymaster sponsorship works (gas is sponsored)
-- ❌ Transaction simulation fails with "UserOperation reverted during simulation"
-
-The issue appears to be with Pimlico's strict simulation requirements for EntryPoint v0.6. The Fuse bundler/paymaster implementation works perfectly and is recommended for production use.
+Both implementations are fully functional and pass all tests with EntryPoint v0.6.
 
 ## Configuration
 
@@ -97,9 +93,11 @@ Paymaster (Gas Sponsorship)
 
 ## Files
 
-- `aa_tests.ts` - Main test suite
+- `aa_tests.ts` - Fuse bundler/paymaster test suite
+- `aa_tests_pimlico.ts` - Pimlico bundler/paymaster test suite
 - `etherspot_account.ts` - EtherspotWallet adapter for permissionless.js
-- `fuse_bundler_transport.ts` - Custom transport for Fuse bundler compatibility
+- `fuse_bundler_transport.ts` - Custom transport for Fuse bundler (v0.6 compatibility)
+- `pimlico_bundler_transport.ts` - Custom transport for Pimlico bundler (v0.6 compatibility)
 - `package.json` - Dependencies and scripts
 - `tsconfig.json` - TypeScript configuration
 
@@ -108,4 +106,5 @@ Paymaster (Gas Sponsorship)
 - Node.js 18+
 - TypeScript 5+
 - Valid private key with sufficient balance
-- Fuse API key
+- Fuse API key (for Fuse bundler tests)
+- Pimlico API key (for Pimlico bundler tests)
